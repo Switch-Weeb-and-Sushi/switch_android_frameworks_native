@@ -1971,9 +1971,9 @@ void EventHub::openDeviceLocked(const std::string& devicePath) {
     bool deviceDisabled = false;
     if (device->configuration && device->configuration->tryGetProperty(String8("device.disabled"), deviceDisabled)) {
         if (deviceDisabled) {
-            delete device;
+            device.reset();
             ALOGV("ignoring disabled device");
-            return -1;
+            return void();
         }
     }
 
